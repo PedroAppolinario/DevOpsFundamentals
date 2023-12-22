@@ -16,17 +16,17 @@ provider "azurerm" {
 }
 
 # Create Resources Group
-resources "azurerm_resource_group" "rg" {
+resource "azurerm_resource_group" "rg" {
     location = "brazilsouth"
     name = "rg-infraterraform-001"
-    tags - merge(var.tags, {
+    tags = merge(var.tags, {
         "workspace" = "${terraform.workspace}"
     }
   ) 
 }
 
-resources "azurerm_storage_account" "site" {
-    name                     = "stinfradevops001"
+resource "azurerm_storage_account" "site" {
+    name                     = "stinfradesafiodevops001"
     resource_group_name      = azurerm_resource_group.rg.name
     location                 = azurerm_resource_group.rg.location
     account_kind             = "StorageV2"
@@ -38,7 +38,7 @@ resources "azurerm_storage_account" "site" {
         index_document = "index.html"
     }
 
-    tags = merge(var,tags, {
+    tags = merge(var.tags, {
         "workspace" = "${terraform.workspace}"
     }
   )
